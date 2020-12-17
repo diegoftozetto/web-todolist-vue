@@ -1,18 +1,16 @@
 <template>
   <div id="app">
     <Header/>
-    <ToDoList/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header'
-import ToDoList from './components/ToDoList'
 
 export default {
   name: 'App',
   components: {
-    ToDoList,
     Header
   }
 }
