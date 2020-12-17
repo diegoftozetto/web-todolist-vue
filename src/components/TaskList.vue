@@ -13,9 +13,10 @@
             type="checkbox"
             class="form-check-input mr-2"
             :value="task.marked"
-            :defaultChecked="task.marked"
+            :Checked="task.marked"
+            @change="checkMarkedHandler"
           />
-          <label class="form-check-label tasklist-text-task">
+          <label class="form-check-label tasklist-text-task" :htmlFor="task._id">
             {{task.text}}
           </label>
         </div>
@@ -42,6 +43,31 @@
     data() {
       return {
         tasks: undefined
+      }
+    },
+    methods: {
+      async checkMarkedHandler(event) {
+        const id = event.target.id;
+        const json = {marked: event.target.checked}
+
+        const response = await fetch(
+          'https://web-api-todolist.herokuapp.com/tasks/' + id,
+          {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(json)
+          }
+        );
+        const data = await response.json();
+
+        if (response.status == 200) {
+          var filterTasks = this.tasks.filter(items => items._id !== data._id);
+          filterTasks.unshift(data);
+          this.tasks = filterTasks;
+        }
+        else {
+          //console.log(data.message)
+        }
       }
     }
   }
