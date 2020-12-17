@@ -23,7 +23,7 @@
         <small>
           Última Atualização: {{new Date(task.updatedAt).toLocaleString('pt-br')}}
           <div class="tasklist-icons" v-if="task.marked">
-            <i title="Excluir" class="fas fa-trash tasklist-icon-remove"></i>
+            <i title="Excluir" class="fas fa-trash tasklist-icon-remove" @click="removeClickhandler" :id="task._id"></i>
           </div>
         </small>
       </li>
@@ -64,6 +64,26 @@
           var filterTasks = this.tasks.filter(items => items._id !== data._id);
           filterTasks.unshift(data);
           this.tasks = filterTasks;
+        }
+        else {
+          //console.log(data.message)
+        }
+      },
+      async removeClickhandler(event) {
+        const id = event.target.id;
+
+        const response = await fetch(
+          'https://web-api-todolist.herokuapp.com/tasks/' + id,
+          {
+            method: "DELETE"
+          }
+        );
+        const data = await response.json();
+
+        if (response.status == 200) {
+          var filterTasks = this.tasks.filter(items => items._id !== id);
+          this.tasks = filterTasks;
+          alert(data.message);
         }
         else {
           //console.log(data.message)
