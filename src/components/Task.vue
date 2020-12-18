@@ -6,42 +6,48 @@
         </div>
         <div class="card-body">
           <h6>Nome da Tarefa</h6>
-            <form @submit.prevent="formSubmitHandler">
-              <validation-provider
-                rules="required|max:100"
-                v-slot="{errors}"
-              >
-                <input
-                  autoFocus
-                  type="text"
-                  class="form-control"
-                  id="text"
-                  name="text"
-                  placeholder="Informe o nome da tarefa..."
-                  :value="text"
-                  @input="text = $event.target.value"
-                  :class="errors[0] ? 'invalid' : null"
-                />
-                <div class="error">{{errors[0]}}</div>
-              </validation-provider>
-              <router-link class="btn btn-secondary btn-sm mt-2 mr-2" to="/home" role="button">Cancelar</router-link>
-              <button
-                type="submit"
-                class="btn btn-primary btn-sm mt-2"
-              >
-                Salvar
-              </button>
-            </form>
+            <ValidationObserver
+              v-slot="{invalid}"
+            >
+              <form @submit.prevent="formSubmitHandler">
+                <validation-provider
+                  rules="required|max:100"
+                  v-slot="{errors}"
+                >
+                  <input
+                    autoFocus
+                    type="text"
+                    class="form-control"
+                    id="text"
+                    name="text"
+                    placeholder="Informe o nome da tarefa..."
+                    :value="text"
+                    @input="text = $event.target.value"
+                    :class="errors[0] ? 'invalid' : null"
+                  />
+                  <div class="error">{{errors[0]}}</div>
+                </validation-provider>
+                <router-link class="btn btn-secondary btn-sm mt-2 mr-2" to="/home" role="button">Cancelar</router-link>
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-sm mt-2"
+                  :disabled="invalid"
+                >
+                  Salvar
+                </button>
+              </form>
+            </ValidationObserver>
         </div>
       </div>
     </div>
 </template>
 
 <script>
-  import { ValidationProvider } from 'vee-validate'
+  import { ValidationProvider, ValidationObserver } from 'vee-validate'
 
   export default {
     components: {
+      ValidationObserver,
       ValidationProvider
     },
     data() {
@@ -86,5 +92,11 @@
 
   input.invalid {
     border: 1px solid red
+  }
+
+  button:disabled {
+    border-color: gray;
+    background-color: lightgray;
+    color: darkgray;
   }
 </style>
