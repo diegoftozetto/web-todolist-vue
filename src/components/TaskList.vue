@@ -78,12 +78,12 @@
             method: "DELETE"
           }
         );
-        const data = await response.json();
+        //const data = await response.json();
 
         if (response.status == 200) {
           var filterTasks = this.tasks.filter(items => items._id !== id);
           this.tasks = filterTasks;
-          alert(data.message);
+          //alert(data.message);
         }
         else {
           //console.log(data.message)
