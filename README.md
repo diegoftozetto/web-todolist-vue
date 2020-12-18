@@ -1,24 +1,8 @@
-# web-todolist-vue
+# Acessar Aplicação
 
-## Project setup
-```
-npm install
-```
+O projeto está hospedado no Heroku: [To-Do List](https://web-todolist-vue.herokuapp.com).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## API
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Utiliza uma simples API em NodeJS que também foi hospedada no Heroku e usa um serviço de banco de dados que hospeda o banco de dados MongoDB (MongoDB Atlas).\
+Link da API: [To-Do List API](https://github.com/diegoftozetto/api-todolist.git).
