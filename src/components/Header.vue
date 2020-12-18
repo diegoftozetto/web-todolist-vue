@@ -21,6 +21,6 @@
 
 <style scoped>
   .nav-link.router-link-active {
-    color: rgb(218, 218, 218);
+    color: white;
   }
 </style>
